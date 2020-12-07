@@ -11,14 +11,15 @@ const server = http.createServer(function(req, res) {
     req.pipe(concat({ encoding: 'string' }, function(body) {
         console.log(body);
         console.log('--- REQUEST END ---');
-        res.statusCode = 200;
+        res.statusCode = (Math.random() < 0.5 ? 200 : 500);
+        console.log('-- replying with status %d', res.statusCode);
         res.end();
     }));
 });
 
 server.listen(5059);
 server.on('listening', function() {
-    console.error('Server listening');
+    console.error('Dummy target server listening');
 });
 server.on('error', function(error) {
     console.error('Error:', error);
